@@ -69,7 +69,8 @@ export class AzureProxyClient {
       headers: { "Content-Type": "application/json" },
       signal,
       body: JSON.stringify({
-        messages,
+        // The proxy injects the system prompt server-side.
+        messages: messages.filter((m) => m.role !== "system"),
         tools,
         tool_choice: "auto",
         temperature: 0.2,

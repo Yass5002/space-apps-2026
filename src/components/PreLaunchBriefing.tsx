@@ -25,7 +25,7 @@ export const PreLaunchBriefing: React.FC<PreLaunchBriefingProps> = ({
   const pct = Math.round(preload.progressPct);
   const statusState = preload.ready ? "ready" : "loading";
   const statusLabel = preload.ready
-    ? preload.cloudHealth?.hasLlmKey
+    ? preload.cloudHealth?.ok
       ? "Ready · Cloud AI online"
       : "Ready · Offline assistant"
     : `Loading Mars scene · ${pct}%`;

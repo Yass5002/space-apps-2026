@@ -129,22 +129,12 @@ export async function runMissionAssetPreload(
       cloudHealth = await Promise.race([
         azure.checkHealth(),
         new Promise<ProxyHealth>((res) =>
-          setTimeout(
-            () =>
-              res({
-                ok: false,
-                deployment: "offline-deterministic",
-                speechRegion: "none",
-                hasLlmKey: false,
-                hasSpeechKey: false,
-              }),
-            2600
-          )
+          setTimeout(() => res({ ok: false }), 2600)
         ),
       ]);
-      if (cloudHealth.ok && cloudHealth.hasLlmKey) {
+      if (cloudHealth.ok) {
         item.status = "ready";
-        item.detail = cloudHealth.hasSpeechKey ? "Cloud AI + Neural Voice" : "Cloud AI";
+        item.detail = "Cloud AI + Neural Voice";
       } else {
         item.status = "degraded";
         item.detail = "Local Deterministic Engine";
